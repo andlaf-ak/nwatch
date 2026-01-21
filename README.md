@@ -1,4 +1,4 @@
-# nwwatch
+# nwatch
 
 Real-time workflow step viewer for the nWave agentic framework. Displays development steps as connected cards in a grid layout, with real-time updates via WebSocket.
 
