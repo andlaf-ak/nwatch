@@ -1,0 +1,38 @@
+{
+  "task_id": "01-01",
+  "project_id": "nwwatch-step-viewer",
+  "phase": "Backend Foundation",
+  "description": "Create Step domain entity and StepStatus enum",
+  "files_to_create": [
+    {
+      "path": "backend/domain/__init__.py",
+      "purpose": "Domain package initialization"
+    },
+    {
+      "path": "backend/domain/step.py",
+      "purpose": "Step entity and StepStatus enum"
+    }
+  ],
+  "requires": [],
+  "acceptance_criteria": [
+    "StepStatus enum has values: PENDING, IN_PROGRESS, COMPLETED, FAILED, SKIPPED",
+    "Step dataclass has fields: task_id, project_id, phase, description, status, major_version, minor_version",
+    "Step.from_dict() class method parses JSON structure with validation.status",
+    "Step.to_dict() method serializes to JSON-compatible dict",
+    "major_version and minor_version are parsed from task_id (e.g., '01-02' -> 1, 2)"
+  ],
+  "implementation_notes": {
+    "overview": "Create the core domain model following hexagonal architecture",
+    "key_requirements": [
+      "Use @dataclass decorator for Step",
+      "Use Enum for StepStatus",
+      "Handle task_id parsing with error handling",
+      "Status mapping from validation.status in JSON"
+    ]
+  },
+  "validation": {
+    "status": "approved",
+    "reviewed_by": "orchestrator",
+    "reviewed_at": "2026-01-21"
+  }
+}

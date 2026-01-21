@@ -1,0 +1,63 @@
+%% C4 Component Diagram - Backend
+%% Level 3: Component View (Hexagonal Architecture)
+
+graph TB
+    subgraph backend [FastAPI Backend - Hexagonal Architecture]
+
+        subgraph driving [Driving Adapters - Left Side]
+            ws_adapter["<b>WebSocket Adapter</b><br/>[Component]<br/>FastAPI WebSocket endpoint<br/>Handles client connections"]
+
+            file_watcher["<b>Watchdog File Watcher</b><br/>[Component]<br/>Monitors steps folder<br/>Emits file events"]
+        end
+
+        subgraph application [Application Layer]
+            step_service["<b>StepService</b><br/>[Component]<br/>Orchestrates step operations<br/>Handles change notifications"]
+
+            conn_manager["<b>ConnectionManager</b><br/>[Component]<br/>Manages WebSocket clients<br/>Broadcasts messages"]
+        end
+
+        subgraph domain [Domain Layer - Core]
+            step_entity["<b>Step</b><br/>[Entity]<br/>task_id, phase, status<br/>majorVersion, minorVersion"]
+
+            step_status["<b>StepStatus</b><br/>[Value Object]<br/>PENDING, IN_PROGRESS<br/>COMPLETED, FAILED, SKIPPED"]
+        end
+
+        subgraph ports [Ports - Interfaces]
+            repo_port["<b>StepRepository</b><br/>[Port]<br/>get_all(), get_by_id()<br/>refresh()"]
+
+            watcher_port["<b>FileWatcher</b><br/>[Port]<br/>start(callback)<br/>stop()"]
+        end
+
+        subgraph driven [Driven Adapters - Right Side]
+            json_repo["<b>JsonFileRepository</b><br/>[Component]<br/>Reads/parses JSON files<br/>Returns Step entities"]
+        end
+
+        filesystem["<b>File System</b><br/>/path/to/steps/*.json"]
+
+    end
+
+    browser["<b>Browser</b><br/>[Client]"]
+
+    browser <-->|"WebSocket"| ws_adapter
+    ws_adapter --> conn_manager
+    conn_manager --> step_service
+    file_watcher -->|"FileEvent"| step_service
+    step_service --> repo_port
+    repo_port --> json_repo
+    json_repo --> filesystem
+    step_service --> step_entity
+    step_entity --> step_status
+    file_watcher -.->|"implements"| watcher_port
+    json_repo -.->|"implements"| repo_port
+
+    style browser fill:#08427b,stroke:#052e56,color:#fff
+    style ws_adapter fill:#85bbf0,stroke:#5a9bd4,color:#000
+    style file_watcher fill:#85bbf0,stroke:#5a9bd4,color:#000
+    style step_service fill:#438dd5,stroke:#2e6295,color:#fff
+    style conn_manager fill:#438dd5,stroke:#2e6295,color:#fff
+    style step_entity fill:#1168bd,stroke:#0b4884,color:#fff
+    style step_status fill:#1168bd,stroke:#0b4884,color:#fff
+    style repo_port fill:#facc15,stroke:#ca8a04,color:#000
+    style watcher_port fill:#facc15,stroke:#ca8a04,color:#000
+    style json_repo fill:#85bbf0,stroke:#5a9bd4,color:#000
+    style filesystem fill:#999,stroke:#666,color:#fff

@@ -1,0 +1,44 @@
+{
+  "task_id": "04-02",
+  "project_id": "nwwatch-step-viewer",
+  "phase": "Frontend Grid & Theme",
+  "description": "Create useTheme hook and ThemeToggle component",
+  "files_to_create": [
+    {
+      "path": "frontend/src/hooks/useTheme.ts",
+      "purpose": "Custom hook for theme state and persistence"
+    },
+    {
+      "path": "frontend/src/components/ThemeToggle.tsx",
+      "purpose": "Toggle button for dark/light theme"
+    },
+    {
+      "path": "frontend/src/styles/variables.css",
+      "purpose": "CSS custom properties for theming"
+    }
+  ],
+  "requires": ["03-01"],
+  "acceptance_criteria": [
+    "useTheme() returns { theme, toggleTheme }",
+    "theme is 'dark' | 'light'",
+    "Theme persisted to localStorage key 'nwwatch-theme'",
+    "On mount, reads from localStorage or defaults to 'dark'",
+    "Updates document.documentElement.dataset.theme",
+    "ThemeToggle shows sun/moon icons based on current theme",
+    "data-testid: theme-toggle",
+    "CSS variables for: --bg-primary, --bg-secondary, --text-primary, --text-secondary, --status-* colors"
+  ],
+  "implementation_notes": {
+    "overview": "Theme management with persistence",
+    "key_requirements": [
+      "useEffect to sync with localStorage and DOM",
+      "CSS variables on :root and [data-theme='dark']/[data-theme='light']",
+      "Accessible button with aria-label"
+    ]
+  },
+  "validation": {
+    "status": "approved",
+    "reviewed_by": "orchestrator",
+    "reviewed_at": "2026-01-21"
+  }
+}

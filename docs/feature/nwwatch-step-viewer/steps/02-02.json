@@ -1,0 +1,42 @@
+{
+  "task_id": "02-02",
+  "project_id": "nwwatch-step-viewer",
+  "phase": "Backend WebSocket",
+  "description": "Create FastAPI main application with WebSocket endpoint",
+  "files_to_create": [
+    {
+      "path": "backend/main.py",
+      "purpose": "FastAPI application entry point with WebSocket endpoint"
+    },
+    {
+      "path": "backend/requirements.txt",
+      "purpose": "Python dependencies"
+    }
+  ],
+  "requires": ["02-01"],
+  "acceptance_criteria": [
+    "FastAPI app created with CORS middleware",
+    "WebSocket endpoint at /ws",
+    "On WebSocket connect: send init message with all steps",
+    "On file change: broadcast update message to all clients",
+    "CLI argument for steps folder path (sys.argv[1])",
+    "Serves static files from frontend/dist at /",
+    "Health check endpoint at /health",
+    "requirements.txt includes: fastapi, uvicorn, watchdog, websockets"
+  ],
+  "implementation_notes": {
+    "overview": "Main application tying together all backend components",
+    "key_requirements": [
+      "Use argparse or sys.argv for CLI",
+      "Initialize StepService with folder path",
+      "Start file watcher on startup",
+      "WebSocket lifecycle management",
+      "Static file serving for production"
+    ]
+  },
+  "validation": {
+    "status": "approved",
+    "reviewed_by": "orchestrator",
+    "reviewed_at": "2026-01-21"
+  }
+}

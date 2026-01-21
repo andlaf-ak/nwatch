@@ -1,0 +1,47 @@
+{
+  "task_id": "01-02",
+  "project_id": "nwwatch-step-viewer",
+  "phase": "Backend Foundation",
+  "description": "Create JsonFileRepository adapter for reading step files",
+  "files_to_create": [
+    {
+      "path": "backend/ports/__init__.py",
+      "purpose": "Ports package initialization"
+    },
+    {
+      "path": "backend/ports/step_repository.py",
+      "purpose": "StepRepository protocol (port interface)"
+    },
+    {
+      "path": "backend/adapters/__init__.py",
+      "purpose": "Adapters package initialization"
+    },
+    {
+      "path": "backend/adapters/json_file_repository.py",
+      "purpose": "JsonFileRepository implementation"
+    }
+  ],
+  "requires": ["01-01"],
+  "acceptance_criteria": [
+    "StepRepository Protocol defines: get_all() -> list[Step], get_by_id(task_id) -> Step | None, refresh(task_id) -> Step | None",
+    "JsonFileRepository takes folder_path in constructor",
+    "get_all() reads all *.json files and returns list of Step objects",
+    "get_by_id() returns Step for matching task_id or None",
+    "refresh() re-reads specific file and returns updated Step",
+    "Malformed JSON files are skipped with warning logged"
+  ],
+  "implementation_notes": {
+    "overview": "Implement the driven adapter for reading step files",
+    "key_requirements": [
+      "Use typing.Protocol for StepRepository",
+      "Use glob for file discovery",
+      "Use json.load for parsing",
+      "Log errors but don't crash on bad files"
+    ]
+  },
+  "validation": {
+    "status": "approved",
+    "reviewed_by": "orchestrator",
+    "reviewed_at": "2026-01-21"
+  }
+}

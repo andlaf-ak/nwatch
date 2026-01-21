@@ -1,0 +1,20 @@
+%% C4 Context Diagram - nwwatch System
+%% Level 1: System Context
+
+graph TB
+    subgraph boundary [System Context]
+
+        developer["<b>Developer</b><br/>[Person]<br/>Uses nWave framework<br/>to develop software"]
+
+        nwwatch["<b>nwwatch</b><br/>[Software System]<br/>Real-time step viewer<br/>for nWave development"]
+
+        filesystem["<b>File System</b><br/>[External System]<br/>Stores step JSON files<br/>in docs/feature/*/steps/"]
+
+    end
+
+    developer -->|"Views step progress<br/>via web browser"| nwwatch
+    nwwatch -->|"Monitors and reads<br/>step JSON files"| filesystem
+
+    style developer fill:#08427b,stroke:#052e56,color:#fff
+    style nwwatch fill:#1168bd,stroke:#0b4884,color:#fff
+    style filesystem fill:#999,stroke:#666,color:#fff

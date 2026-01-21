@@ -1,0 +1,28 @@
+%% C4 Container Diagram - nwwatch System
+%% Level 2: Container View
+
+graph TB
+    subgraph boundary [nwwatch System]
+
+        developer["<b>Developer</b><br/>[Person]"]
+
+        subgraph frontend_container [Frontend Container]
+            react_spa["<b>React SPA</b><br/>[Container: React + TypeScript]<br/>Displays step grid with<br/>status colors and pulsing"]
+        end
+
+        subgraph backend_container [Backend Container]
+            fastapi["<b>FastAPI Server</b><br/>[Container: Python + FastAPI]<br/>Serves WebSocket API,<br/>watches file changes"]
+        end
+
+        filesystem["<b>Steps Folder</b><br/>[File System]<br/>*.json step files"]
+
+    end
+
+    developer -->|"Views in browser<br/>http://localhost:8000"| react_spa
+    react_spa <-->|"WebSocket<br/>ws://localhost:8000/ws<br/>JSON messages"| fastapi
+    fastapi -->|"Reads step files<br/>Monitors changes"| filesystem
+
+    style developer fill:#08427b,stroke:#052e56,color:#fff
+    style react_spa fill:#438dd5,stroke:#2e6295,color:#fff
+    style fastapi fill:#438dd5,stroke:#2e6295,color:#fff
+    style filesystem fill:#999,stroke:#666,color:#fff

@@ -1,0 +1,35 @@
+{
+  "task_id": "02-01",
+  "project_id": "nwwatch-step-viewer",
+  "phase": "Backend WebSocket",
+  "description": "Create ConnectionManager for WebSocket clients",
+  "files_to_create": [
+    {
+      "path": "backend/application/connection_manager.py",
+      "purpose": "ConnectionManager for managing WebSocket connections"
+    }
+  ],
+  "requires": ["01-04"],
+  "acceptance_criteria": [
+    "ConnectionManager class manages list of active WebSocket connections",
+    "connect(websocket) adds connection to active list",
+    "disconnect(websocket) removes connection from list",
+    "broadcast(message) sends JSON message to all connected clients",
+    "send_personal(websocket, message) sends to single client",
+    "Handles connection errors gracefully during broadcast"
+  ],
+  "implementation_notes": {
+    "overview": "Manage WebSocket client connections for broadcasting updates",
+    "key_requirements": [
+      "Use list to track active connections",
+      "Use asyncio for async send operations",
+      "Handle disconnected clients during broadcast",
+      "JSON serialization for messages"
+    ]
+  },
+  "validation": {
+    "status": "approved",
+    "reviewed_by": "orchestrator",
+    "reviewed_at": "2026-01-21"
+  }
+}

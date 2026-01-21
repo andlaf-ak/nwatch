@@ -1,0 +1,72 @@
+%% C4 Component Diagram - Frontend
+%% Level 3: Component View (React Components)
+
+graph TB
+    subgraph frontend [React Frontend - Component Architecture]
+
+        subgraph app_layer [App Layer]
+            app["<b>App</b><br/>[Component]<br/>Root component<br/>Theme provider"]
+        end
+
+        subgraph ui_components [UI Components]
+            header["<b>Header</b><br/>[Component]<br/>Title and theme toggle"]
+
+            theme_toggle["<b>ThemeToggle</b><br/>[Component]<br/>Dark/light switch<br/>Persists to localStorage"]
+
+            step_grid["<b>StepGrid</b><br/>[Component]<br/>Groups steps by phase<br/>Renders PhaseRows"]
+
+            phase_row["<b>PhaseRow</b><br/>[Component]<br/>Horizontal row of steps<br/>Connecting lines"]
+
+            step_card["<b>StepCard</b><br/>[Component]<br/>Individual step display<br/>Color + pulse animation"]
+
+            conn_status["<b>ConnectionStatus</b><br/>[Component]<br/>WebSocket state indicator"]
+        end
+
+        subgraph hooks_layer [Custom Hooks]
+            use_ws["<b>useWebSocket</b><br/>[Hook]<br/>WebSocket connection<br/>Reconnection logic<br/>Step state management"]
+
+            use_theme["<b>useTheme</b><br/>[Hook]<br/>Theme state<br/>localStorage persistence"]
+        end
+
+        subgraph types_layer [Types]
+            step_type["<b>Step</b><br/>[TypeScript Interface]<br/>taskId, phase, status<br/>majorVersion, minorVersion"]
+        end
+
+        subgraph styles_layer [Styles]
+            variables["<b>variables.css</b><br/>[CSS]<br/>Theme colors<br/>Status colors"]
+
+            animations["<b>animations.css</b><br/>[CSS]<br/>Pulse keyframes"]
+        end
+
+    end
+
+    backend["<b>FastAPI Backend</b><br/>[External]"]
+
+    app --> header
+    app --> step_grid
+    app --> conn_status
+    header --> theme_toggle
+    step_grid --> phase_row
+    phase_row --> step_card
+    app --> use_ws
+    app --> use_theme
+    theme_toggle --> use_theme
+    use_ws <-->|"WebSocket"| backend
+    step_card --> step_type
+    step_card --> variables
+    step_card --> animations
+    theme_toggle --> variables
+
+    style backend fill:#999,stroke:#666,color:#fff
+    style app fill:#1168bd,stroke:#0b4884,color:#fff
+    style header fill:#438dd5,stroke:#2e6295,color:#fff
+    style theme_toggle fill:#438dd5,stroke:#2e6295,color:#fff
+    style step_grid fill:#438dd5,stroke:#2e6295,color:#fff
+    style phase_row fill:#438dd5,stroke:#2e6295,color:#fff
+    style step_card fill:#438dd5,stroke:#2e6295,color:#fff
+    style conn_status fill:#438dd5,stroke:#2e6295,color:#fff
+    style use_ws fill:#85bbf0,stroke:#5a9bd4,color:#000
+    style use_theme fill:#85bbf0,stroke:#5a9bd4,color:#000
+    style step_type fill:#facc15,stroke:#ca8a04,color:#000
+    style variables fill:#a5d6a7,stroke:#66bb6a,color:#000
+    style animations fill:#a5d6a7,stroke:#66bb6a,color:#000

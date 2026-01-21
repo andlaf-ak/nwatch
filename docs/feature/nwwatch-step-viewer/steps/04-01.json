@@ -1,0 +1,41 @@
+{
+  "task_id": "04-01",
+  "project_id": "nwwatch-step-viewer",
+  "phase": "Frontend Grid & Theme",
+  "description": "Create StepGrid and PhaseRow components",
+  "files_to_create": [
+    {
+      "path": "frontend/src/components/PhaseRow.tsx",
+      "purpose": "Horizontal row of steps for a single phase"
+    },
+    {
+      "path": "frontend/src/components/StepGrid.tsx",
+      "purpose": "Grid layout grouping steps by phase"
+    }
+  ],
+  "requires": ["03-03"],
+  "acceptance_criteria": [
+    "PhaseRow displays phase label and horizontal list of StepCards",
+    "PhaseRow renders connecting lines between cards (CSS ::after pseudo-element)",
+    "StepGrid groups steps by majorVersion (phase)",
+    "StepGrid sorts phases by majorVersion ascending",
+    "StepGrid sorts steps within phase by minorVersion",
+    "data-testid: step-grid, phase-row, phase-row-{phaseName}",
+    "First in_progress step across all phases gets isPulsing=true",
+    "Empty state shown when no steps (data-testid: empty-state)"
+  ],
+  "implementation_notes": {
+    "overview": "Grid layout organizing steps by development phase",
+    "key_requirements": [
+      "Group steps using reduce/map",
+      "Determine first in_progress step for pulsing",
+      "CSS flexbox for horizontal layout",
+      "Connecting lines via CSS"
+    ]
+  },
+  "validation": {
+    "status": "approved",
+    "reviewed_by": "orchestrator",
+    "reviewed_at": "2026-01-21"
+  }
+}

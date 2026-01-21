@@ -1,0 +1,51 @@
+%% Sequence Diagram - Initial Load Flow
+%% Shows what happens when a client connects
+
+sequenceDiagram
+    participant Browser
+    participant WS as WebSocket<br/>Adapter
+    participant CM as Connection<br/>Manager
+    participant SS as StepService
+    participant JR as JsonFile<br/>Repository
+    participant FS as File System
+
+    Note over Browser,FS: User opens http://localhost:8000
+
+    Browser->>Browser: Load React SPA
+    Browser->>Browser: useWebSocket hook<br/>initializes
+
+    Browser->>WS: Connect ws://localhost:8000/ws
+
+    WS->>CM: add_connection(websocket)
+    CM-->>WS: connection registered
+
+    WS->>SS: get_all_steps()
+
+    alt Cache empty (first request)
+        SS->>JR: get_all()
+        JR->>FS: List *.json files
+        FS-->>JR: [01-01.json, 01-02.json, ...]
+
+        loop For each JSON file
+            JR->>FS: Read file
+            FS-->>JR: JSON content
+            JR->>JR: Parse & transform to Step
+        end
+
+        JR-->>SS: [Step, Step, ...]
+        SS->>SS: Populate cache
+    else Cache populated
+        SS->>SS: Return from cache
+    end
+
+    SS-->>WS: [Step, Step, ...]
+
+    WS->>Browser: {"type": "init", "steps": [...]}
+
+    Browser->>Browser: setSteps(steps)
+    Browser->>Browser: Render StepGrid
+    Browser->>Browser: Group by phase
+    Browser->>Browser: Apply colors per status
+    Browser->>Browser: Pulse first<br/>in_progress step
+
+    Note over Browser: User sees step visualization

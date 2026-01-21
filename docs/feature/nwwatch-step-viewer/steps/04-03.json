@@ -1,0 +1,48 @@
+{
+  "task_id": "04-03",
+  "project_id": "nwwatch-step-viewer",
+  "phase": "Frontend Grid & Theme",
+  "description": "Create App component integrating all parts",
+  "files_to_create": [
+    {
+      "path": "frontend/src/components/Header.tsx",
+      "purpose": "Header with title and theme toggle"
+    },
+    {
+      "path": "frontend/src/components/ConnectionStatus.tsx",
+      "purpose": "WebSocket connection status indicator"
+    },
+    {
+      "path": "frontend/src/App.tsx",
+      "purpose": "Root App component"
+    },
+    {
+      "path": "frontend/src/App.css",
+      "purpose": "Main application styles"
+    }
+  ],
+  "requires": ["03-02", "04-01", "04-02"],
+  "acceptance_criteria": [
+    "App uses useWebSocket to get steps and connectionStatus",
+    "App uses useTheme to get theme and toggleTheme",
+    "Header displays 'nWave Step Viewer' title and ThemeToggle",
+    "ConnectionStatus shows connected/disconnected/reconnecting state",
+    "data-testid: connection-status with data-status attribute",
+    "StepGrid receives steps from useWebSocket",
+    "Imports variables.css and animations.css",
+    "Responsive layout works on different screen sizes"
+  ],
+  "implementation_notes": {
+    "overview": "Root component wiring everything together",
+    "key_requirements": [
+      "WebSocket URL from environment or default ws://localhost:8000/ws",
+      "Expose __ws on window for testing (reconnection tests)",
+      "Clean CSS with theme variables"
+    ]
+  },
+  "validation": {
+    "status": "approved",
+    "reviewed_by": "orchestrator",
+    "reviewed_at": "2026-01-21"
+  }
+}

@@ -1,0 +1,36 @@
+%% Sequence Diagram - File Change Flow
+%% Shows real-time update when a step file is modified
+
+sequenceDiagram
+    participant FS as File System
+    participant WD as Watchdog<br/>FileWatcher
+    participant SS as StepService
+    participant JR as JsonFile<br/>Repository
+    participant CM as Connection<br/>Manager
+    participant WS as WebSocket
+    participant UI as React UI
+
+    Note over FS,UI: Step file modified (e.g., status changed to "in_progress")
+
+    FS->>WD: inotify/FSEvents<br/>file modified event
+    WD->>WD: Debounce (100ms)
+    WD->>SS: FileEvent(modified, "02-03.json")
+
+    SS->>JR: refresh("02-03")
+    JR->>FS: Read file content
+    FS-->>JR: JSON content
+    JR->>JR: Parse JSON
+    JR->>JR: Transform to Step entity
+    JR-->>SS: Step(taskId="02-03", status="in_progress")
+
+    SS->>SS: Update in-memory cache
+    SS->>CM: broadcast(UpdateMessage)
+
+    CM->>WS: send to all clients
+    WS->>UI: {"type": "update", "step": {...}}
+
+    UI->>UI: Update steps state
+    UI->>UI: Re-render StepGrid
+    UI->>UI: Apply pulse animation<br/>to in_progress step
+
+    Note over UI: User sees step "02-03"<br/>now pulsing yellow

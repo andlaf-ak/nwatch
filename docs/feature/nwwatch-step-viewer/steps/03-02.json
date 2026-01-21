@@ -1,0 +1,36 @@
+{
+  "task_id": "03-02",
+  "project_id": "nwwatch-step-viewer",
+  "phase": "Frontend Foundation",
+  "description": "Create useWebSocket hook for real-time communication",
+  "files_to_create": [
+    {
+      "path": "frontend/src/hooks/useWebSocket.ts",
+      "purpose": "Custom hook for WebSocket connection and state management"
+    }
+  ],
+  "requires": ["03-01"],
+  "acceptance_criteria": [
+    "useWebSocket(url) hook returns { steps, connectionStatus }",
+    "connectionStatus is 'connecting' | 'connected' | 'disconnected'",
+    "Handles 'init' message to populate initial steps",
+    "Handles 'update' message to update single step",
+    "Handles 'remove' message to remove step from list",
+    "Auto-reconnect with exponential backoff (1s, 2s, 4s, max 30s)",
+    "Cleans up WebSocket on unmount"
+  ],
+  "implementation_notes": {
+    "overview": "React hook managing WebSocket connection lifecycle",
+    "key_requirements": [
+      "Use useState for steps and connectionStatus",
+      "Use useEffect for WebSocket lifecycle",
+      "Use useRef for WebSocket instance and reconnect timer",
+      "Implement exponential backoff reconnection"
+    ]
+  },
+  "validation": {
+    "status": "approved",
+    "reviewed_by": "orchestrator",
+    "reviewed_at": "2026-01-21"
+  }
+}

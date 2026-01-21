@@ -1,0 +1,82 @@
+/**
+ * CSS custom properties (variables) for theming.
+ * Supports dark and light themes via data-theme attribute on document root.
+ */
+
+/* Base/Root variables - defaults (dark theme) */
+:root {
+  /* Background colors */
+  --bg-primary: #0F172A;
+  --bg-secondary: #1E293B;
+
+  /* Text colors */
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+
+  /* Status colors */
+  --status-pending: #9CA3AF;
+  --status-in-progress: #F59E0B;
+  --status-completed: #10B981;
+  --status-failed: #EF4444;
+  --status-skipped: #3B82F6;
+
+  /* Border and shadow */
+  --border-color: #334155;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+
+  /* Accent colors */
+  --accent-primary: #3B82F6;
+  --accent-hover: #2563EB;
+}
+
+/* Dark theme (explicit) */
+[data-theme='dark'] {
+  /* Background colors */
+  --bg-primary: #0F172A;
+  --bg-secondary: #1E293B;
+
+  /* Text colors */
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+
+  /* Status colors */
+  --status-pending: #9CA3AF;
+  --status-in-progress: #F59E0B;
+  --status-completed: #10B981;
+  --status-failed: #EF4444;
+  --status-skipped: #3B82F6;
+
+  /* Border and shadow */
+  --border-color: #334155;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+
+  /* Accent colors */
+  --accent-primary: #3B82F6;
+  --accent-hover: #2563EB;
+}
+
+/* Light theme */
+[data-theme='light'] {
+  /* Background colors */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F1F5F9;
+
+  /* Text colors */
+  --text-primary: #0F172A;
+  --text-secondary: #64748B;
+
+  /* Status colors */
+  --status-pending: #6B7280;
+  --status-in-progress: #D97706;
+  --status-completed: #059669;
+  --status-failed: #DC2626;
+  --status-skipped: #2563EB;
+
+  /* Border and shadow */
+  --border-color: #E2E8F0;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  /* Accent colors */
+  --accent-primary: #2563EB;
+  --accent-hover: #1D4ED8;
+}

@@ -1,0 +1,39 @@
+{
+  "task_id": "01-04",
+  "project_id": "nwwatch-step-viewer",
+  "phase": "Backend Foundation",
+  "description": "Create StepService application service",
+  "files_to_create": [
+    {
+      "path": "backend/application/__init__.py",
+      "purpose": "Application package initialization"
+    },
+    {
+      "path": "backend/application/step_service.py",
+      "purpose": "StepService orchestrating step operations"
+    }
+  ],
+  "requires": ["01-02", "01-03"],
+  "acceptance_criteria": [
+    "StepService takes StepRepository and FileWatcher in constructor",
+    "get_all_steps() returns all steps from repository",
+    "start_watching(callback) starts file watcher and translates events to step updates",
+    "stop_watching() stops the file watcher",
+    "Maintains in-memory cache of steps for fast access",
+    "On file event: refreshes step from repository and calls callback with updated step"
+  ],
+  "implementation_notes": {
+    "overview": "Application service coordinating domain and infrastructure",
+    "key_requirements": [
+      "Dependency injection via constructor",
+      "Cache management for performance",
+      "Event translation from FileEvent to Step updates",
+      "Thread-safe operations"
+    ]
+  },
+  "validation": {
+    "status": "approved",
+    "reviewed_by": "orchestrator",
+    "reviewed_at": "2026-01-21"
+  }
+}

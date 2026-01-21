@@ -1,0 +1,43 @@
+{
+  "task_id": "01-03",
+  "project_id": "nwwatch-step-viewer",
+  "phase": "Backend Foundation",
+  "description": "Create WatchdogFileWatcher adapter for monitoring file changes",
+  "files_to_create": [
+    {
+      "path": "backend/domain/events.py",
+      "purpose": "FileEvent dataclass for file change events"
+    },
+    {
+      "path": "backend/ports/file_watcher.py",
+      "purpose": "FileWatcher protocol (port interface)"
+    },
+    {
+      "path": "backend/adapters/watchdog_file_watcher.py",
+      "purpose": "WatchdogFileWatcher implementation using watchdog library"
+    }
+  ],
+  "requires": ["01-01"],
+  "acceptance_criteria": [
+    "FileEvent dataclass has: event_type (created|modified|deleted), file_path",
+    "FileWatcher Protocol defines: start(callback), stop()",
+    "WatchdogFileWatcher monitors a folder for .json file changes",
+    "Debounces rapid changes with 100ms delay",
+    "Filters to only .json files",
+    "Calls callback with FileEvent on file changes"
+  ],
+  "implementation_notes": {
+    "overview": "Implement file system monitoring using watchdog library",
+    "key_requirements": [
+      "Use watchdog.observers.Observer",
+      "Use watchdog.events.FileSystemEventHandler",
+      "Implement debouncing with threading.Timer",
+      "Filter for .json extension only"
+    ]
+  },
+  "validation": {
+    "status": "approved",
+    "reviewed_by": "orchestrator",
+    "reviewed_at": "2026-01-21"
+  }
+}

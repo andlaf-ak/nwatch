@@ -1,0 +1,54 @@
+{
+  "task_id": "03-01",
+  "project_id": "nwwatch-step-viewer",
+  "phase": "Frontend Foundation",
+  "description": "Initialize React app with TypeScript and create Step types",
+  "files_to_create": [
+    {
+      "path": "frontend/package.json",
+      "purpose": "NPM package configuration with React and TypeScript"
+    },
+    {
+      "path": "frontend/tsconfig.json",
+      "purpose": "TypeScript configuration"
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "purpose": "Vite build configuration"
+    },
+    {
+      "path": "frontend/src/types/step.ts",
+      "purpose": "Step TypeScript interfaces"
+    },
+    {
+      "path": "frontend/src/index.tsx",
+      "purpose": "React entry point"
+    },
+    {
+      "path": "frontend/public/index.html",
+      "purpose": "HTML template"
+    }
+  ],
+  "requires": ["02-02"],
+  "acceptance_criteria": [
+    "package.json has react, react-dom, typescript, vite dependencies",
+    "Step interface matches backend: taskId, projectId, phase, description, status, majorVersion, minorVersion",
+    "StepStatus type is union: 'pending' | 'in_progress' | 'completed' | 'failed' | 'skipped'",
+    "WebSocketMessage types: InitMessage, UpdateMessage, RemoveMessage",
+    "npm run dev starts development server",
+    "npm run build creates production build"
+  ],
+  "implementation_notes": {
+    "overview": "Set up React project foundation with TypeScript",
+    "key_requirements": [
+      "Use Vite for fast builds",
+      "Strict TypeScript configuration",
+      "Match API contract from architecture doc"
+    ]
+  },
+  "validation": {
+    "status": "approved",
+    "reviewed_by": "orchestrator",
+    "reviewed_at": "2026-01-21"
+  }
+}

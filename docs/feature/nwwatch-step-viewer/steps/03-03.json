@@ -1,0 +1,40 @@
+{
+  "task_id": "03-03",
+  "project_id": "nwwatch-step-viewer",
+  "phase": "Frontend Foundation",
+  "description": "Create StepCard component with status colors and pulse animation",
+  "files_to_create": [
+    {
+      "path": "frontend/src/components/StepCard.tsx",
+      "purpose": "Individual step card component"
+    },
+    {
+      "path": "frontend/src/styles/animations.css",
+      "purpose": "CSS animations including pulse"
+    }
+  ],
+  "requires": ["03-01"],
+  "acceptance_criteria": [
+    "StepCard displays task_id, phase name, and status badge",
+    "Status badge color: gray=pending, yellow=in_progress, green=completed, red=failed, blue=skipped",
+    "data-testid attributes: step-card, step-card-{taskId}, task-id, phase-name, status-badge",
+    "data-color attribute on status badge with color name",
+    "pulse CSS class adds opacity animation (1.0 to 0.7, 1.5s, ease-in-out)",
+    "isPulsing prop controls pulse animation",
+    "Responsive sizing for different screen widths"
+  ],
+  "implementation_notes": {
+    "overview": "Visual step card with status indication",
+    "key_requirements": [
+      "Props: step, isPulsing",
+      "CSS animations with @keyframes",
+      "Color mapping object for status->color",
+      "All test selectors in place"
+    ]
+  },
+  "validation": {
+    "status": "approved",
+    "reviewed_by": "orchestrator",
+    "reviewed_at": "2026-01-21"
+  }
+}
